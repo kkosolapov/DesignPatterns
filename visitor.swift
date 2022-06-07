@@ -44,4 +44,4 @@ let names = planets.map { (planet: Planet) -> String in
     return visitor.name
 }
 
-names
+print(names)
