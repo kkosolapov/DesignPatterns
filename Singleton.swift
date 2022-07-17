@@ -1,9 +1,20 @@
-final class ElonMusk {
+class Singleton{
 
-    static let shared = ElonMusk()
+	private static let instance = Singleton()
 
-    private init() {
-    }
+	private init(){}
+	
+	static func getInstance() -> Singleton{
+		
+		return instance
+	}
+	
+	func test(){
+	
+		print("Singleton instance ready")
+	}
 }
 
-let elon = ElonMusk.shared
+
+var singleton = Singleton.getInstance()
+singleton.test()
