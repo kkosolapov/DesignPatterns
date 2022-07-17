@@ -15,6 +15,5 @@ class Singleton{
 	}
 }
 
-
 var singleton = Singleton.getInstance()
 singleton.test()
