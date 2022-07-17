@@ -1,53 +1,56 @@
-protocol CurrencyDescribing {
-    var symbol: String { get }
-    var code: String { get }
-}
-
-final class Euro: CurrencyDescribing {
-    var symbol: String {
-        return "€"
-    }
+protocol Shape {
+    var shape: String { get }
     
-    var code: String {
-        return "EUR"
+    func draw() -> Void
+}
+
+extension Shape {
+    func draw() {
+        print(self.shape)
     }
 }
 
-final class UnitedStatesDolar: CurrencyDescribing {
-    var symbol: String {
-        return "$"
-    }
-    
-    var code: String {
-        return "USD"
-    }
+struct Circle: Shape {
+    let shape: String = "🔴"
 }
 
-enum Country {
-    case unitedStates
-    case spain
-    case uk
-    case greece
+struct Square: Shape {
+    let shape: String = "🟥"
 }
 
-enum CurrencyFactory {
-    static func currency(for country: Country) -> CurrencyDescribing? {
+struct Triangle: Shape {
+    let shape: String = "🔺"
+}
 
-        switch country {
-            case .spain, .greece:
-                return Euro()
-            case .unitedStates:
-                return UnitedStatesDolar()
-            default:
-                return nil
+struct ShapeFactory {
+    static func generate(_ shape: Shapes) -> Shape {
+        switch shape {
+        case .circle: return Circle()
+        case .square: return Square()
+        case .triangle: return Triangle()
         }
-        
+    }
+
+    enum Shapes {
+        case circle
+        case square
+        case triangle
     }
 }
 
-let noCurrencyCode = "No Currency Code Available"
+struct Main {
+    static func main() -> Void {
+        let circle = ShapeFactory.generate(.circle)
 
-CurrencyFactory.currency(for: .greece)?.code ?? noCurrencyCode
-CurrencyFactory.currency(for: .spain)?.code ?? noCurrencyCode
-CurrencyFactory.currency(for: .unitedStates)?.code ?? noCurrencyCode
-CurrencyFactory.currency(for: .uk)?.code ?? noCurrencyCode
+        let square = ShapeFactory.generate(.square)
+
+        let triangle = ShapeFactory.generate(.triangle)
+
+
+        circle.draw()
+        square.draw()
+        triangle.draw()
+    }
+}
+
+Main.main()
